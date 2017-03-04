@@ -1,0 +1,23 @@
+{
+  "name": "course.rest",
+  "description": "README.md",
+  "version": "1.0.0",
+  "author": "guillaume.chervet",
+  "scripts": {
+    "lint": "jshint **.js",
+    "test": "mocha **.spec.js",
+    "start": "node ./Sources/server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "express": "^4.13.0",
+    "lodash": "^3.10.0"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "jshint": "latest",
+    "watch": "latest"
+  },
+  "main": "Sources/server.js",
+  "license": "ISC"
+}
