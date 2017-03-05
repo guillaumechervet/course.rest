@@ -1,17 +1,17 @@
 var express = require('express');
 var app = express();
 
-var users = require('./users.json');
+var _data = require('./data.json');
 
 app.get('/users', function (request, response) {
     console.log('get /users called'); 
-    response.end(JSON.stringify(users));
+    response.end(JSON.stringify(_data));
 });
 
 /*
 app.post('/users', function (request, response) {
-    users.push(request.body);
-    res.end( JSON.stringify(data));
+    _data.places.push(request.body);
+    response.end( JSON.stringify(request.body));
 });
 
 app.get('/users/:id', function (request, response) {
