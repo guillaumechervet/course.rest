@@ -12,7 +12,7 @@ explication npm
 explication des version
 
 
-git tag -a v1.4 -m "http get sans body parser sans watch"
+git tag -a v1.0 -m "http get sans body parser sans watch"
 
 
 

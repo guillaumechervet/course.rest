@@ -4,9 +4,14 @@
   "version": "1.0.0",
   "author": "guillaume.chervet",
   "scripts": {
-    "lint": "jshint **.js",
-    "test": "mocha **.spec.js",
-    "start": "node ./Sources/server.js"
+    "lint": "jshint ./Sources",
+    "lint:watch": "watch \"npm run lint\" .",
+    "test": "mocha ./Sources",
+    "test:watch": "watch \"npm run test\" .",
+    "server": "node ./Sources/server.js",
+    "server:watch": "nodemon ./Sources/server.js",
+    "build": "npm run lint && npm run server",
+    "build:watch": "parallelshell \"npm run lint:watch\" \"npm run server:test\" \"npm run server:watch\""
   },
   "dependencies": {
     "body-parser": "^1.13.1",
@@ -14,8 +19,10 @@
     "lodash": "^3.10.0"
   },
   "devDependencies": {
-    "mocha": "latest",
     "jshint": "latest",
+    "mocha": "latest",
+    "nodemon": "^1.11.0",
+    "parallelshell": "^2.0.0",
     "watch": "latest"
   },
   "main": "Sources/server.js",
