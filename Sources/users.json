@@ -1,20 +1,26 @@
 {
-   "user1" : {
-      "name" : "mahesh",
-	  "password" : "password1",
-	  "profession" : "teacher",
-	  "id": 1
+   "places" : [{
+      "name" : "Londre",
+	  "author" : "Patrick",
+	  "review" : 2,
+	  "id": "1",
+      "image":null
    },
-   "user2" : {
-      "name" : "suresh",
-	  "password" : "password2",
-	  "profession" : "librarian",
-	  "id": 2
+   {
+      "name" : "Lens",
+	  "author" : "Louis",
+	  "review" : 3,
+	  "id": "2",
+      "image":null
    },
-   "user3" : {
-      "name" : "ramesh",
-	  "password" : "password3",
-	  "profession" : "clerk",
-	  "id": 3
-   }
+   {
+      "name" : "Ploufragan",
+	  "author" : "Guillaume",
+	  "review" : 3,
+	  "id": "3",
+      "image":{
+          "url": "https://www.bworld.fr/api/file/get/c27e39ee-7ba9-46f8-aa7c-9e334c72a96c/c858655b-e07e-498a-a041-cb932b446714/ImageThumb/free.png",
+          "title": "Lieu naturel"
+      }
+   }]
 }
