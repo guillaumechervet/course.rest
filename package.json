@@ -11,7 +11,7 @@
     "server": "node ./Sources/server.js",
     "server:watch": "nodemon ./Sources/server.js",
     "build": "npm run lint && npm run server",
-    "build:watch": "parallelshell \"npm run lint:watch\" \"npm run server:test\" \"npm run server:watch\""
+    "build:watch": "parallelshell \"npm run server:watch\""
   },
   "dependencies": {
     "body-parser": "^1.13.1",
