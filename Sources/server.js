@@ -1,20 +1,36 @@
 var express = require('express');
 var app = express();
+var js2xmlparser = require('js2xmlparser');
 
 var _data = require('./data.json');
 
-app.get('/users', function (request, response) {
+// parse various different custom JSON types as JSON 
+//app.use(express.json());
+//app.use(express.urlencoded());
+
+app.get('/places', function (request, response, next) {
     console.log('get /users called'); 
-    response.end(JSON.stringify(_data));
+
+     var contentType = request.headers['content-type'];
+     if (contentType) {
+        if(contentType.indexOf('application/json') > -1) {
+            response.end(JSON.stringify(_data));
+        } else {
+            response.end(js2xmlparser.parse("root", _data));
+        }
+     }else{
+        next();
+     }
+    
 });
 
 /*
-app.post('/users', function (request, response) {
+app.post('/places', function (request, response) {
     _data.places.push(request.body);
     response.end( JSON.stringify(request.body));
 });
 
-app.get('/users/:id', function (request, response) {
+app.get('/places/:id', function (request, response) {
    var id = request.params.id;
     for(var i=0; i<users.length; i++){
         var user = users[i];
@@ -25,7 +41,7 @@ app.get('/users/:id', function (request, response) {
    }
 })
 
-app.delete('/users/:id', function (request, response) {
+app.delete('/places/:id', function (request, response) {
     var id = request.params.id;
     for(var i=0; i<users.length; i++){
         var user = users[i];

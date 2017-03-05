@@ -1,23 +1,23 @@
 {
    "places" : [{
+      "id": "1",
       "name" : "Londre",
 	  "author" : "Patrick",
 	  "review" : 2,
-	  "id": "1",
       "image":null
    },
    {
+      "id": "2",
       "name" : "Lens",
 	  "author" : "Louis",
 	  "review" : 3,
-	  "id": "2",
       "image":null
    },
    {
+      "id": "3",
       "name" : "Ploufragan",
 	  "author" : "Guillaume",
 	  "review" : 3,
-	  "id": "3",
       "image":{
           "url": "https://www.bworld.fr/api/file/get/c27e39ee-7ba9-46f8-aa7c-9e334c72a96c/c858655b-e07e-498a-a041-cb932b446714/ImageThumb/free.png",
           "title": "Lieu naturel"
