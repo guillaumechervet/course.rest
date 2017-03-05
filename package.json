@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "guillaume.chervet",
   "scripts": {
-    "lint": "jshint ./Sources",
+    "lint": "eslint ./Sources",
     "lint:watch": "watch \"npm run lint\" .",
     "test": "mocha ./Sources",
     "test:watch": "watch \"npm run test\" .",
@@ -14,15 +14,11 @@
     "build:watch": "parallelshell \"npm run server:watch\""
   },
   "dependencies": {
-    "body-parser": "^1.13.1",
     "express": "^4.13.0",
-    "js2xmlparser": "^3.0.0",
-    "lodash": "^3.10.0",
-    "xml": "^1.0.1"
+    "js2xmlparser": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "latest",
-    "jshint": "latest",
     "mocha": "latest",
     "nodemon": "latest",
     "parallelshell": "latest",
