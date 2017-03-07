@@ -6,21 +6,20 @@ var _data = require('./data.json');
 
 // parse various different custom JSON types as JSON 
 //app.use(express.json());
-//app.use(express.urlencoded());
-
+//app.use(express.urlencoded()); 
 app.get('/places', function (request, response, next) {
-    console.log('get /users called'); 
+    console.log('get /users called');
 
-     var contentType = request.headers['content-type'];
-     if (contentType) {
+    var contentType = request.headers['content-type'];
+    if (contentType) {
         if(contentType.indexOf('application/json') > -1) {
             response.end(JSON.stringify(_data));
         } else {
-            response.end(js2xmlparser.parse("root", _data));
+            response.end(js2xmlparser.parse('root', _data));
         }
-     }else{
+    }else{
         next();
-     }
+    }
     
 });
 
@@ -55,8 +54,8 @@ app.delete('/places/:id', function (request, response) {
 })*/
 
 var server = app.listen(8081, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+    var host = server.address().address;
+    var port = server.address().port;
 
-  console.log(`Example app listening at http://${host}:${port}`);
+    console.log(`Example app listening at http://${host}:${port}`);
 });

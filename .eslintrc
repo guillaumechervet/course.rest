@@ -1,0 +1,19 @@
+{
+    "env": {
+        "browser": false,
+        "node": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+"parserOptions": {
+  "sourceType": "module"
+},
+"rules":{
+  "no-console": 0,
+  "no-unused-vars": ["error"],
+  "indent": ["error"],
+  "linebreak-style": [ "error", "windows"],
+  "quotes": ["error", "single"],
+  "semi": ["error", "always" ]
+  }
+}
