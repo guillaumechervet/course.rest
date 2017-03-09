@@ -8,14 +8,16 @@
     "lint:watch": "watch \"npm run lint\" ./Sources",
     "test": "mocha ./Sources",
     "test:watch": "watch \"npm run test\" . ",
-    "server": "node ./Sources/server.js",
-    "server:watch": "nodemon ./Sources/server.js",
+    "server": "node ./Sources/serverRest.js",
+    "server:watch": "nodemon ./Sources/serverRest.js",
     "build": "npm run lint && npm run server",
     "build:watch": "parallelshell \"npm run server:watch\" \"npm run lint:watch\""
   },
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.13.0",
-    "js2xmlparser": "^3.0.0"
+    "js2xmlparser": "^3.0.0",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "eslint": "latest",
