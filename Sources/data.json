@@ -19,7 +19,7 @@
 	  "author" : "Guillaume",
 	  "review" : 3,
       "image":{
-          "url": "https://www.bworld.fr/api/file/get/c27e39ee-7ba9-46f8-aa7c-9e334c72a96c/c858655b-e07e-498a-a041-cb932b446714/ImageThumb/free.png",
+          "url": "http://localhost:8081/api/files/7577fcc0-0580-11e7-a2b8-5dcb02604871_hackathon.PNG",
           "title": "Lieu naturel"
       }
    }]

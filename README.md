@@ -16,5 +16,6 @@ git tag -a v1.0 -m "http get sans body parser sans watch"
 git tag -a v1.1 -m "http get sans body parser avec watch"
 
 
+// http://blog.xebia.fr/2014/03/17/post-vs-put-la-confusion/
 
 
