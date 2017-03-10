@@ -1,15 +1,18 @@
 # Cours API Rest
 
 expliquer node
-installer node via 
-https://github.com/coreybutler/nvm-windows
-https://github.com/creationix/nvm
-vérifier version de node
-lancer un script node hello world
-lancer un script fibonacci
+installer dernier node LTS 
+- Google node.js
+- expliquer node manager
+    - https://github.com/coreybutler/nvm-windows
+    - https://github.com/creationix/nvm
+- vérifier version de node
+- lancer un script node hello world
+- lancer un script fibonacci
 
-explication npm
-explication des version
+- explication npm
+    - explication versioning package
+    - gestion des dépendences
 
 
 git tag -a v1.0 -m "http get sans body parser sans watch"
