@@ -41,6 +41,7 @@ var middlewareHttp = function (request, response, next) {
     let contentType = request.headers['content-type'];
     if (contentType && contentType.indexOf('application/json') > -1) {
         next();
+        return;
     }
 
     response.status(415).json({message:'Content-Type incorrect'});
@@ -63,15 +64,14 @@ app.post('/api/places', function (request, response) {
 });
 
 app.put('/api/places/:id', function (request, response) {
+    let id = request.params.id;
     console.log(`put /api/places/:id called with id ${id}`);
     
-    let id = uuidV1();
-
     let places = _data.places;
     let place = _.find(places, { 'id': id });
-
     if(place === undefined) {
         response.status(422).json({message:'Place not found'});
+        return;
     }
     _.remove(places, { id: id });
     places.push(request.body);
@@ -87,6 +87,7 @@ app.patch('/api/places/:id', function (request, response) {
 
     if(place === undefined) {
         response.status(422).json({message:'Place not found'});
+        return;
     }
     Object.assign(place, request.body);
     response.status(204).json();
@@ -99,6 +100,7 @@ app.get('/api/places/:id', function (request, response) {
     let place = _.find(places, { 'id': id });
     if(place !== undefined){
         response.status(201).json(place);
+        return;
     }
     /*for(var i=0; i< places.length; i++){
         var place = places[i];
@@ -120,7 +122,7 @@ app.delete('/api/places/:id', function (request, response) {
             var index = places.indexOf(5);
             places.splice(index, 1);
             response.status(204).json();
-            break;
+            return;
         }
     }
     response.status(404).json({message:'Nothing found!'});
