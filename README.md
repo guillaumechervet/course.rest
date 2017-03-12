@@ -22,6 +22,11 @@ cmd =>
 # Références
 - http://blog.xebia.fr/2014/03/17/post-vs-put-la-confusion/
 - https://martinfowler.com/articles/richardsonMaturityModel.html
+- https://fr.wikipedia.org/wiki/Representational_state_transfer
+- https://zestedesavoir.com/tutoriels/299/la-theorie-rest-restful-et-hateoas/
+- https://www.tutorialspoint.com/restful/restful_introduction.htm
+- https://www.tutorialspoint.com/restful/restful_caching.htm
+- https://www.tutorialspoint.com/restful/restful_security.htm
 
 # Memo 
 git tag -a v1.0 -m "http get sans body parser sans watch"
