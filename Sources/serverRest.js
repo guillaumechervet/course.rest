@@ -47,8 +47,6 @@ var middlewareHttp = function (request, response, next) {
 };
 app.use(middlewareHttp);
 
-
-
 app.get('/api/places', function (request, response) {
     console.log('get /api/places called');
     response.json(_data);
@@ -64,9 +62,10 @@ app.post('/api/places', function (request, response) {
     response.json(newPlace);
 });
 
-app.patch('/api/places/:id', function (request, response) {
-    let id = request.params.id;
-    console.log(`get /api/places/:id called with id ${id}`);
+app.put('/api/places/:id', function (request, response) {
+    console.log(`put /api/places/:id called with id ${id}`);
+    
+    let id = uuidV1();
 
     let places = _data.places;
     let place = _.find(places, { 'id': id });
@@ -74,21 +73,22 @@ app.patch('/api/places/:id', function (request, response) {
     if(place === undefined) {
         response.status(422).json({message:'Place not found'});
     }
-    let newData = request.body;
+    _.remove(places, { id: id });
+    places.push(request.body);
+    response.status(204).json();
+});
 
-    if(newData.name){
-        place.name = newData.name;
-    }
-    if(newData.author){
-        place.author = newData.author;
-    }
-    if(newData.review){
-        place.review = newData.review;
-    }
-    if(newData.image){
-        place.image = newData.image;
-    }
+app.patch('/api/places/:id', function (request, response) {
+    let id = request.params.id;
+    console.log(`patch /api/places/:id called with id ${id}`);
 
+    let places = _data.places;
+    let place = _.find(places, { 'id': id });
+
+    if(place === undefined) {
+        response.status(422).json({message:'Place not found'});
+    }
+    Object.assign(place, request.body);
     response.status(204).json();
 });
 
