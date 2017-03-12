@@ -20,8 +20,8 @@ cmd =>
 - npm run build:watch
 
 # Références
-http://blog.xebia.fr/2014/03/17/post-vs-put-la-confusion/
-https://martinfowler.com/articles/richardsonMaturityModel.html
+- http://blog.xebia.fr/2014/03/17/post-vs-put-la-confusion/
+- https://martinfowler.com/articles/richardsonMaturityModel.html
 
 # Memo 
 git tag -a v1.0 -m "http get sans body parser sans watch"
