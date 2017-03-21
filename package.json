@@ -3,6 +3,10 @@
   "description": "README.md",
   "version": "1.0.0",
   "author": "guillaume.chervet",
+  "engines": {
+    "node": "6.9.1",
+    "npm": "3.10.8"
+  },
   "scripts": {
     "lint": "eslint ./Sources/**/*.js",
     "lint:watch": "watch \"npm run lint\" ./Sources",

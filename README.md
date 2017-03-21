@@ -1,5 +1,7 @@
 # Cours API Rest
 
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://deploy.azure.com/?repository=https://github.com/guillaumechervet/course.rest)
+
 expliquer node
 installer dernier node LTS 
 - Google node.js
