@@ -10,10 +10,10 @@
   "scripts": {
     "lint": "eslint ./Sources/**/*.js",
     "lint:watch": "watch \"npm run lint\" ./Sources",
-    "test": "mocha ./Sources",
+    "test": "mocha --require ./configureMocha.js ./Sources/**/*.spec.js",
     "test:watch": "watch \"npm run test\" . ",
-    "server": "node ./Sources/serverRest.js",
-    "server:watch": "nodemon ./Sources/serverRest.js",
+    "server": "node ./Sources/server.js",
+    "server:watch": "nodemon ./Sources/server.js",
     "build": "npm run lint && npm run server",
     "build:watch": "parallelshell \"npm run server:watch\" \"npm run lint:watch\""
   },
@@ -31,7 +31,14 @@
     "eslint": "latest",
     "mocha": "latest",
     "nodemon": "latest",
-    "watch": "latest"
+    "watch": "latest",
+    "sinon": "^1.17.6",
+    "sinon-bluebird": "^3.1.0",
+    "sinon-chai": "^2.8.0",
+    "supertest": "^3.0.0",
+    "istanbul": "^0.4.5",
+    "mockery": "^2.0.0",
+    "cross-env": "^3.1.4"
   },
   "main": "Sources/server.js",
   "license": "ISC"
