@@ -28,17 +28,18 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "cross-env": "^3.1.4",
     "eslint": "latest",
+    "istanbul": "^0.4.5",
     "mocha": "latest",
+    "mockery": "^2.0.0",
     "nodemon": "latest",
-    "watch": "latest",
+    "parallelshell": "^2.0.0",
     "sinon": "^1.17.6",
     "sinon-bluebird": "^3.1.0",
     "sinon-chai": "^2.8.0",
     "supertest": "^3.0.0",
-    "istanbul": "^0.4.5",
-    "mockery": "^2.0.0",
-    "cross-env": "^3.1.4"
+    "watch": "latest"
   },
   "main": "Sources/server.js",
   "license": "ISC"
