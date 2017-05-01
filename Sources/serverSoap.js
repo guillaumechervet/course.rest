@@ -24,13 +24,13 @@ const service = {
             }
         }
     }
-};
+};  
 
-var xml = fs.readFileSync('./wscalc1.wsdl', 'utf8');
+var xml = fs.readFileSync('./Sources/wscalc1.wsdl', 'utf8');
 
 const server = http.createServer(function (request, response) {
     response.end('404: Not Found: ' + request.url);
 });
-
+console.log('Server is running at: http://localhost:8000');
 server.listen(8000);
 soap.listen(server, '/wscalc1', service, xml);

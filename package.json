@@ -20,10 +20,6 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.13.0",
-    "express-fileupload": "^0.1.2",
-    "express-formidable": "^1.0.0",
-    "express-openapi": "^0.35.0",
-    "js2xmlparser": "^3.0.0",
     "lodash": "^4.17.4",
     "soap": "^0.19.0",
     "soap-server": "^0.1.0",
