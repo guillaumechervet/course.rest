@@ -40,6 +40,45 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.get('/api/places', function (request, response) {
+    console.log('get /api/places called');
+    response.json(_data);
+});
+
+app.get('/api/places/:id', function (request, response) {
+    let id = request.params.id;
+    console.log(`get /api/places/:id called with id ${id}`);
+    let places = _data.places;
+    let place = _.find(places, {
+        'id': id
+    });
+    if (place !== undefined) {
+        response.status(200).json(place);
+        return;
+    }
+    response.status(404).json({
+        message: 'Nothing found!'
+    });
+});
+
+app.delete('/api/places/:id', function (request, response) {
+    var id = request.params.id;
+    console.log(`delete /api/places/:id called with id ${id}`);
+    var places = _data.places;
+    let place = _.find(places, {
+        'id': id
+    });
+    if (place !== undefined) {
+        var index = places.indexOf(place);
+        places.splice(index, 1);
+        response.status(204).json();
+        return;
+    }
+    response.status(404).json({
+        message: 'Nothing found!'
+    });
+});
+
 var middlewareHttp = function (request, response, next) {
     response.setHeader('Accept', 'application/json');
 
@@ -54,11 +93,6 @@ var middlewareHttp = function (request, response, next) {
     });
 };
 app.use(middlewareHttp);
-
-app.get('/api/places', function (request, response) {
-    console.log('get /api/places called');
-    response.json(_data);
-});
 
 app.post('/api/places', function (request, response) {
     console.log('post /api/places called');
@@ -108,40 +142,6 @@ app.patch('/api/places/:id', function (request, response) {
     }
     Object.assign(place, request.body);
     response.status(204).json();
-});
-
-app.get('/api/places/:id', function (request, response) {
-    let id = request.params.id;
-    console.log(`get /api/places/:id called with id ${id}`);
-    let places = _data.places;
-    let place = _.find(places, {
-        'id': id
-    });
-    if (place !== undefined) {
-        response.status(200).json(place);
-        return;
-    }
-    response.status(404).json({
-        message: 'Nothing found!'
-    });
-});
-
-app.delete('/api/places/:id', function (request, response) {
-    var id = request.params.id;
-    console.log(`delete /api/places/:id called with id ${id}`);
-    var places = _data.places;
-    let place = _.find(places, {
-        'id': id
-    });
-    if (place !== undefined) {
-        var index = places.indexOf(place);
-        places.splice(index, 1);
-        response.status(204).json();
-        return;
-    }
-    response.status(404).json({
-        message: 'Nothing found!'
-    });
 });
 
 // eslint-disable-next-line no-unused-vars
