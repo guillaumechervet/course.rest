@@ -1,9 +1,7 @@
 
-
 let args = process.argv.slice(2);
 
 console.log(`fibonacci call with ${args}`);
-
 
 function fibonacci(n) {
     if (n < 2){
