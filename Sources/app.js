@@ -8,6 +8,23 @@ const path = require('path');
 
 const app = express();
 
+var middlewareHttp = function (request, response, next) {
+    response.setHeader('Accept', 'application/json');
+
+    console.log(request.method + ' ' + request.originalUrl);
+    next();
+   /* let contentType = request.headers['content-type'];
+    if (contentType && contentType.indexOf('application/json') > -1) {
+        next();
+        return;
+    }
+
+    response.status(415).json({
+        message: 'Content-Type incorrect'
+    });*/
+};
+app.use(middlewareHttp);
+
 app.use(fileUpload());
 
 app.post('/api/files', (request, response) => {
@@ -79,20 +96,7 @@ app.delete('/api/places/:id', function (request, response) {
     });
 });
 
-var middlewareHttp = function (request, response, next) {
-    response.setHeader('Accept', 'application/json');
 
-    let contentType = request.headers['content-type'];
-    if (contentType && contentType.indexOf('application/json') > -1) {
-        next();
-        return;
-    }
-
-    response.status(415).json({
-        message: 'Content-Type incorrect'
-    });
-};
-app.use(middlewareHttp);
 
 app.post('/api/places', function (request, response) {
     console.log('post /api/places called');
