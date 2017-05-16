@@ -85,7 +85,7 @@ class Places {
                 'id': id
             });
             if (place === undefined) {
-                response.status(422).json({
+                response.status(404).json({
                     message: 'Place not found'
                 });
                 return;
@@ -107,7 +107,7 @@ class Places {
             });
 
             if (place === undefined) {
-                response.status(422).json({
+                response.status(404).json({
                     message: 'Place not found'
                 });
                 return;
