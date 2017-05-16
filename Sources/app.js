@@ -10,7 +10,7 @@ const app = express();
 
 var middlewareHttp = function (request, response, next) {
     response.setHeader('Accept', 'application/json');
-
+ 
     console.log(request.method + ' ' + request.originalUrl);
     next();
    /* let contentType = request.headers['content-type'];
