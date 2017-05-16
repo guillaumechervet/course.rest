@@ -11,7 +11,7 @@
     "lint": "\".\\node_modules\\.bin\\eslint\" ./Sources/**/*.js",
     "lint:watch": "watch \"npm run lint\" ./Sources",
     "test": "mocha --require ./configureMocha.js ./Sources/**/*.spec.js",
-    "test:watch": "watch \"npm run test\" . ",
+    "test:watch": "mocha --watch --require ./configureMocha.js ./Sources/**/*.spec.js",
     "server": "node ./Sources/server.js",
     "server:watch": "nodemon ./Sources/server.js",
     "build": "npm run lint && npm run server",

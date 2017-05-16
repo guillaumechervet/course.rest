@@ -1,39 +1,59 @@
-var BPromise = require('bluebird');
-var fsPromise = BPromise.promisifyAll(require('fs'));
-var path = require('path');
+var Promise = require('bluebird');
 var _ = require('lodash');
-var filePath = path.resolve(__dirname, './data.json');
+const uuidV1 = require('uuid/v1');
+const _data = require('./data.json');
 
-function _loadAsync(path) {
-    return fsPromise.readFileAsync(path).then(function (content) {
-        console.log(content);
-        return JSON.parse(content);
-    });
+function _loadAsync() {
+    return Promise.resolve(_.cloneDeep(_data));
 }
 
-function _saveAsync(data, path) {
-    return fsPromise.writeFileAsync(path, JSON.stringify(data, null, 4));
+function _saveAsync(data) {
+    Object.assign(_data, data);
+    return Promise.resolve();
 }
 
-function getPlacesAsync() {
-    return _loadAsync(filePath).then((data)=> data.places);
-}
+class Data {
 
-function deletePlaceAsync(id) {
+    getPlacesAsync() {
+        return _loadAsync().then((data)=> data.places);
+    }
 
-    return _loadAsync(filePath).then(function (data) {
-        let places = data.places;
-        let place = _.find(places, {
-            'id': id
+    getPlaceAsync(id) {
+        return _loadAsync().then(function (data) {
+            const places = data.places;
+            let place = _.find(places, {
+                'id': id
+            });
+            return place;
         });
-        if (place !== undefined) {
-            var index = places.indexOf(place);
-            places.splice(index, 1);
-        }
-        return _saveAsync({places}, filePath);
-    });
+    }
+
+    savePlaceAsync(place) {
+        return _loadAsync().then(function (data) {
+            let id = uuidV1();
+            place.id = id;
+            let newPlace = Object.assign({}, place);
+            data.places.push(newPlace);
+            return _saveAsync(data);
+        });
+    }
+
+    deletePlaceAsync(id) {
+        return _loadAsync().then(function (data) {
+            let places = data.places;
+            let place = _.find(places, {
+                'id': id
+            });
+            if (place !== undefined) {
+                var index = places.indexOf(place);
+                places.splice(index, 1);
+            }
+            return _saveAsync({
+                places
+            });
+        });
+    }
 }
 
-exports.getPlacesAsync = getPlacesAsync;
-exports.deletePlaceAsync = deletePlaceAsync;
 
+module.exports = Data;
