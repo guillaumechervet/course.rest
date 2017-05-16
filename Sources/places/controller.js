@@ -96,8 +96,6 @@ app.delete('/api/places/:id', function (request, response) {
     });
 });
 
-
-
 app.post('/api/places', function (request, response) {
     console.log('post /api/places called');
     let newPlace = Object.assign({}, request.body);
