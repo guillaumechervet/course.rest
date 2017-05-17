@@ -1,7 +1,6 @@
 const Data = require('./data');
 const assert = require('assert');
 
-
 describe('Place/data', () => {
     it('should return an array of place', () => {
         const data = new Data();
@@ -30,10 +29,26 @@ describe('Place/data', () => {
         });
     });
 
-    it('should delete a place', () => {
+    it('should remplace an existing place because id is set', () => {
         const data = new Data();
-        data.deletePlaceAsync('3').then(function () {
+        const place = {
+            id: '2',
+            name: 'Lens2',
+            author: 'Louis2',
+            review: 3,
+            image: null
+        };
+        return data.savePlaceAsync(place).then(function () {
             assert.ok(true);
+        });
+    });
+
+    it('should delete a place then fail to delete it again', () => {
+        const data = new Data();
+        data.deletePlaceAsync('3').then(function (success) {
+            assert.ok(success);
+        }).then(function (success) {
+            assert.ko(success);
         });
     });
 

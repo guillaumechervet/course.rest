@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Places = require('./places/controller');
 const Data = require('./places/data');
+const Files = require('./files/controller');
 
 const app = express();
 
@@ -27,7 +28,9 @@ var middlewareHttp = function (request, response, next) {
 };
 app.use(middlewareHttp);
 
+new Files(app);
 new Places(app, new Data());
+
 
 // eslint-disable-next-line no-unused-vars
 app.use(function (error, request, response, next) {

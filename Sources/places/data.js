@@ -3,19 +3,30 @@ var _ = require('lodash');
 const uuidV1 = require('uuid/v1');
 const _data = require('./data.json');
 
+function waitAsync(data) {
+    const deferred = Promise.defer();
+
+    const msToWait = Math.floor((Math.random() * 400) + 1);
+    setTimeout(function () {
+        deferred.resolve(data);
+    }, msToWait);
+
+    return deferred.promise;
+}
+
 function _loadAsync() {
-    return Promise.resolve(_.cloneDeep(_data));
+    return waitAsync(_.cloneDeep(_data));
 }
 
 function _saveAsync(data) {
     Object.assign(_data, data);
-    return Promise.resolve();
+    return waitAsync(); // Promise.resolve()
 }
 
 class Data {
 
     getPlacesAsync() {
-        return _loadAsync().then((data)=> data.places);
+        return _loadAsync().then((data) => data.places);
     }
 
     getPlaceAsync(id) {
@@ -30,10 +41,20 @@ class Data {
 
     savePlaceAsync(place) {
         return _loadAsync().then(function (data) {
-            let id = uuidV1();
-            place.id = id;
-            let newPlace = Object.assign({}, place);
-            data.places.push(newPlace);
+            const places = data.places;
+            if (!place.id) {
+                // insert
+                let id = uuidV1();
+                place.id = id;
+                let newPlace = Object.assign({}, place);
+                places.push(newPlace);
+            } else {
+                // replace
+                _.remove(places, {
+                    id: place.id
+                });
+                places.push(places);
+            }
             return _saveAsync(data);
         });
     }
@@ -47,10 +68,12 @@ class Data {
             if (place !== undefined) {
                 var index = places.indexOf(place);
                 places.splice(index, 1);
+            } else {
+                return false;
             }
             return _saveAsync({
                 places
-            });
+            }).then(() => true);
         });
     }
 }
