@@ -1,3 +1,4 @@
+var validation = require('mw.validation');
 
 class Places {
     constructor(app, data) {
@@ -42,6 +43,30 @@ class Places {
         app.post('/api/places', function (request, response) {
             console.log('post /api/places called');
             let newPlace = request.body;
+
+            var onlyIf = function () {
+                if (newPlace.image && newPlace.image.url) {
+                    return true;
+                }
+                return false;
+            };
+            var rules = {
+                id: ['required'],
+                name: ['required', { minLength: { minLength: 3 } }, { maxLength: { maxLength: 100 } }, { pattern: { regex: /^[a-zA-Z -]*$/ } }],
+                author: ['required'],
+                review: ['required', 'digit'],
+                '@image': {
+                    url: [],
+                    title: [{ required: { onlyIf: onlyIf, message: 'Field Image title is required' } }]
+                }
+            };
+            var validationResult = validation.objectValidation.validateModel(newPlace, rules, true);
+
+            if (!validationResult.success) {
+                response.status(400).json(validationResult.detail);
+                return;
+            }
+
             return data.savePlaceAsync(newPlace).then(function () {
                 response.setHeader('Location', `/api/places/${newPlace.id}`);
                 response.status(204).json(newPlace);
