@@ -53,7 +53,7 @@ class Data {
                 _.remove(places, {
                     id: place.id
                 });
-                places.push(places);
+                places.push(place);
             }
             return _saveAsync(data);
         });

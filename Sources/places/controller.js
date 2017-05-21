@@ -4,7 +4,6 @@ class Places {
     constructor(app, data) {
 
         app.get('/api/places', function (request, response) {
-            console.log('get /api/places called');
             data.getPlacesAsync().then(function (places) {
                 response.json({
                     places: places
@@ -14,34 +13,31 @@ class Places {
 
         app.get('/api/places/:id', function (request, response) {
             let id = request.params.id;
-            console.log(`get /api/places/:id called with id ${id}`);
             return data.getPlaceAsync(id).then(function (place) {
                 if (place !== undefined) {
                     response.status(200).json(place);
                     return;
                 }
                 response.status(404).json({
-                    message: 'Nothing found!'
+                    key: 'entity.not.found'
                 });
             });
         });
 
         app.delete('/api/places/:id', function (request, response) {
             var id = request.params.id;
-            console.log(`delete /api/places/:id called with id ${id}`);
             data.deletePlaceAsync(id).then(function (success) {
                 if (success) {
                     response.status(204).json();
                 } else {
                     response.status(404).json({
-                        message: 'Place not found'
+                        message: 'entity.not.found'
                     });
                 }
             });
         });
 
         app.post('/api/places', function (request, response) {
-            console.log('post /api/places called');
             let newPlace = request.body;
 
             var onlyIf = function () {
@@ -50,7 +46,7 @@ class Places {
                 }
                 return false;
             };
-            var rules = {
+            const rules = {
                 id: ['required'],
                 name: ['required', { minLength: { minLength: 3 } }, { maxLength: { maxLength: 100 } }, { pattern: { regex: /^[a-zA-Z -]*$/ } }],
                 author: ['required'],
@@ -76,15 +72,38 @@ class Places {
         app.put('/api/places/:id', function (request, response) {
             let id = request.params.id;
             console.log(`put /api/places/:id called with id ${id}`);
+            const newPlace = request.body;
+            const onlyIf = function () {
+                if (newPlace.image && newPlace.image.url) {
+                    return true;
+                }
+                return false;
+            };
+            const rules = {
+                id: ['required'],
+                name: ['required', { minLength: { minLength: 3 } }, { maxLength: { maxLength: 100 } }, { pattern: { regex: /^[a-zA-Z -]*$/ } }],
+                author: ['required'],
+                review: ['required', 'digit'],
+                '@image': {
+                    url: [],
+                    title: [{ required: { onlyIf: onlyIf, message: 'Field Image title is required' } }]
+                }
+            };
+            var validationResult = validation.objectValidation.validateModel(newPlace, rules, true);
+
+            if (!validationResult.success) {
+                response.status(400).json(validationResult.detail);
+                return;
+            }
 
             return data.getPlaceAsync(id).then(function (place) {
                 if (place === undefined) {
                     response.status(404).json({
-                        message: 'Place not found'
+                        message: 'entity.not.found'
                     });
                     return;
                 }
-                data.savePlaceAsync(request.body).then(function () {
+                data.savePlaceAsync(newPlace).then(function () {
                     response.status(204).json();
                 });
             });
@@ -94,16 +113,39 @@ class Places {
         app.patch('/api/places/:id', function (request, response) {
             let id = request.params.id;
             console.log(`patch /api/places/:id called with id ${id}`);
+            const newData = request.body;
+            const onlyIf = function () {
+                if (newData.image && newData.image.url) {
+                    return true;
+                }
+                return false;
+            };
+            const rules = {
+                id: [],
+                name: [{ minLength: { minLength: 3 } }, { maxLength: { maxLength: 100 } }, { pattern: { regex: /^[a-zA-Z -]*$/ } }],
+                author: [],
+                review: ['digit'],
+                '@image': {
+                    url: [],
+                    title: [{ required: { onlyIf: onlyIf, message: 'Field Image title is required' } }]
+                }
+            };
+            var validationResult = validation.objectValidation.validateModel(newData, rules, true);
+
+            if (!validationResult.success) {
+                response.status(400).json(validationResult.detail);
+                return;
+            }
 
             return data.getPlaceAsync(id).then(function (place) {
                 if (place === undefined) {
                     response.status(404).json({
-                        message: 'Place not found'
+                        message: 'entity.not.found'
                     });
                     return;
                 }
-                Object.assign(place, request.body);
-                data.savePlaceAsync(place).then(function () {
+                Object.assign(place, newData);
+                return data.savePlaceAsync(place).then(function () {
                     response.status(204).json();
                 });
             });
