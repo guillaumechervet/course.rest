@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var middlewareHttp = function (request, response, next) {
-    //response.setHeader('Accept', 'application/json');
+    response.setHeader('Accept', 'application/json');
     response.setHeader('Api-version', packageJson.version);
 
     console.log(`${request.method} ${request.originalUrl}`);

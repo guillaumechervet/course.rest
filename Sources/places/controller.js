@@ -5,6 +5,7 @@ class Places {
 
         app.get('/api/places', function (request, response) {
             data.getPlacesAsync().then(function (places) {
+                response.setHeader('Cache-Control', 'private, max-age=30');
                 response.json({
                     places: places
                 });
@@ -48,12 +49,29 @@ class Places {
             };
             const rules = {
                 id: ['required'],
-                name: ['required', { minLength: { minLength: 3 } }, { maxLength: { maxLength: 100 } }, { pattern: { regex: /^[a-zA-Z -]*$/ } }],
+                name: ['required', {
+                    minLength: {
+                        minLength: 3
+                    }
+                }, {
+                    maxLength: {
+                        maxLength: 100
+                    }
+                }, {
+                    pattern: {
+                        regex: /^[a-zA-Z -]*$/
+                    }
+                }],
                 author: ['required'],
                 review: ['required', 'digit'],
                 '@image': {
-                    url: [],
-                    title: [{ required: { onlyIf: onlyIf, message: 'Field Image title is required' } }]
+                    url: ['url'],
+                    title: [{
+                        required: {
+                            onlyIf: onlyIf,
+                            message: 'Field Image title is required'
+                        }
+                    }]
                 }
             };
             var validationResult = validation.objectValidation.validateModel(newPlace, rules, true);
@@ -81,12 +99,29 @@ class Places {
             };
             const rules = {
                 id: ['required'],
-                name: ['required', { minLength: { minLength: 3 } }, { maxLength: { maxLength: 100 } }, { pattern: { regex: /^[a-zA-Z -]*$/ } }],
+                name: ['required', {
+                    minLength: {
+                        minLength: 3
+                    }
+                }, {
+                    maxLength: {
+                        maxLength: 100
+                    }
+                }, {
+                    pattern: {
+                        regex: /^[a-zA-Z -]*$/
+                    }
+                }],
                 author: ['required'],
                 review: ['required', 'digit'],
                 '@image': {
-                    url: [],
-                    title: [{ required: { onlyIf: onlyIf, message: 'Field Image title is required' } }]
+                    url: ['url'],
+                    title: [{
+                        required: {
+                            onlyIf: onlyIf,
+                            message: 'Field Image title is required'
+                        }
+                    }]
                 }
             };
             var validationResult = validation.objectValidation.validateModel(newPlace, rules, true);
@@ -122,12 +157,29 @@ class Places {
             };
             const rules = {
                 id: [],
-                name: [{ minLength: { minLength: 3 } }, { maxLength: { maxLength: 100 } }, { pattern: { regex: /^[a-zA-Z -]*$/ } }],
-                author: [],
+                name: [{
+                    minLength: {
+                        minLength: 3
+                    }
+                }, {
+                    maxLength: {
+                        maxLength: 100
+                    }
+                }, {
+                    pattern: {
+                        regex: /^[a-zA-Z -]*$/
+                    }
+                }],
+                author: ['url'],
                 review: ['digit'],
                 '@image': {
                     url: [],
-                    title: [{ required: { onlyIf: onlyIf, message: 'Field Image title is required' } }]
+                    title: [{
+                        required: {
+                            onlyIf: onlyIf,
+                            message: 'Field Image title is required'
+                        }
+                    }]
                 }
             };
             var validationResult = validation.objectValidation.validateModel(newData, rules, true);
