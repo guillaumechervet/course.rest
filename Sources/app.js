@@ -18,8 +18,7 @@ var middlewareHttp = function (request, response, next) {
 
     console.log(`${request.method} ${request.originalUrl}`);
     if (request.body && Object.keys(request.body).length >0) {
-        console.log('request.body');
-        console.log(request.body);
+        console.log(`request.body ${JSON.stringify(request.body)}`);
     }
     next();
 };
