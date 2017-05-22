@@ -18,7 +18,6 @@
     "build:watch": "parallelshell \"npm run server:watch\" \"npm run lint:watch\""
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "express": "^4.13.0",
     "express-fileupload": "^0.1.2",
@@ -30,7 +29,6 @@
     "cross-env": "^3.1.4",
     "eslint": "latest",
     "istanbul": "^0.4.5",
-    "mocha": "latest",
     "mockery": "^2.0.0",
     "nodemon": "latest",
     "parallelshell": "^2.0.0",

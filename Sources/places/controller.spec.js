@@ -26,8 +26,8 @@ describe('Places/controller', () => {
                 assert(response.body.key, 'entity.not.found');
             });
     });
-
-    it('POST /api/places should respond a http 204 OK with no image', () => {
+/*
+    it('POST /api/places should respond a http 204 OK with no image', (done) => {
 
         var newPlace = {
             name: 'Londre',
@@ -42,11 +42,12 @@ describe('Places/controller', () => {
             .expect('Location', /places/)
             .expect(204)
             .end(function (err, res) {
-                if (err) throw err;
+                if (err) return done(err);
+                done();
             });
     });
 
-    it('POST /api/places should respond a http 204 OK with an image', () => {
+    it('POST /api/places should respond a http 204 OK with an image', (done) => {
 
         var newPlace = {
             name: 'Londre',
@@ -64,12 +65,13 @@ describe('Places/controller', () => {
             .expect('Location', /places/)
             .expect(204)
             .end(function (err, res) {
-                if (err) throw err;
+                if (err) return done(err);
+                done();
             });
 
     });
 
-    it('POST /api/places should respond a http 400 KO', () => {
+    it('POST /api/places should respond a http 400 KO', (done) => {
 
         var newPlace = {
             name: '',
@@ -84,12 +86,13 @@ describe('Places/controller', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .end(function (err, res) {
-                if (err) throw err;
+                if (err) return done(err);
+                done();
             });
 
     });
 
-    it('POST /api/places should respond a http 400 KO', () => {
+    it('POST /api/places should respond a http 400 KO', (done) => {
 
         const app = require('../app');
         var newPlace = {
@@ -107,42 +110,10 @@ describe('Places/controller', () => {
             .expect('Content-Type', /json/)
             .expect(400)
             .end(function (err, res) {
-                if (err) throw err;
-            });
-
-    });
- 
-    /*it('GET /api/places should respond a http 200 OK', () => {
-
-        const app = require('../app');
-        request(app)
-            .get('/api/places')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
-
-    });
-
-    it('DELETE /api/places/3 should respond a http 200 OK', () => {
-
-        const app = require('../app');
-        request(app)
-            .delete('/api/places')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
-
-        request(app)
-            .delete('/api/places')
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .end(function (err, res) {
-                if (err) throw err;
+                if (err) return done(err);
+                done();
             });
 
     });*/
+ 
 });

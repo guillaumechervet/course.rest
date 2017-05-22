@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Places = require('./places/controller');
 const Data = require('./places/data');
-const Files = require('./files/controller');
 const packageJson = require('../package.json');
 
 const app = express();
@@ -13,7 +12,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 var middlewareHttp = function (request, response, next) {
-    response.setHeader('Accept', 'application/json');
     response.setHeader('Api-version', packageJson.version);
 
     console.log(`${request.method} ${request.originalUrl}`);
@@ -24,7 +22,6 @@ var middlewareHttp = function (request, response, next) {
 };
 app.use(middlewareHttp);
 
-new Files(app);
 new Places(app, new Data());
 
 app.get('/api/version', function (request, response) {
@@ -32,13 +29,6 @@ app.get('/api/version', function (request, response) {
         version: packageJson.version
     });
 });
-
-var middleware404 = function (request, response) {
-    response.json({
-        key: 'not.found'
-    });
-};
-app.use(middleware404);
 
 // eslint-disable-next-line no-unused-vars
 app.use(function (error, request, response, next) {
