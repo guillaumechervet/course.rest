@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "author": "guillaume.chervet",
   "engines": {
-    "node": "6.9.1",
-    "npm": "3.10.8"
+    "node": "6.10.3",
+    "npm": "3.10.10"
   },
   "scripts": {
     "lint": "\".\\node_modules\\.bin\\eslint\" ./Sources/**/*.js",
