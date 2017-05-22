@@ -40,7 +40,7 @@ describe('Places/controller', () => {
             .post('/api/places')
             .send(newPlace)
             .expect('Location', /places/)
-            .expect(204)
+            .expect(201)
             .end(function (err, res) {
                 if (err) return done(err);
                 done();
@@ -63,7 +63,7 @@ describe('Places/controller', () => {
             .post('/api/places')
             .send(newPlace)
             .expect('Location', /places/)
-            .expect(204)
+            .expect(201)
             .end(function (err, res) {
                 if (err) return done(err);
                 done();
