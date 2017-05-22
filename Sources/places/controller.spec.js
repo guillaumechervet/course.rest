@@ -111,7 +111,7 @@ describe('Places/controller', () => {
             });
 
     });
-
+ 
     /*it('GET /api/places should respond a http 200 OK', () => {
 
         const app = require('../app');
