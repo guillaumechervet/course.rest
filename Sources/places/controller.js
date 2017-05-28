@@ -3,9 +3,21 @@ var validation = require('mw.validation');
 class Places {
     constructor(app, data) {
 
+        app.options('/api/places', function (request, response) {
+            response.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+            response.header('Access-Control-Allow-Methods', 'GET,POST');
+            response.header('Access-Control-Allow-Headers', 'Content-Type');
+            response.json();
+        });
+
         app.get('/api/places', function (request, response) {
+
+            response.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+            response.header('Access-Control-Allow-Methods', 'GET,POST');
+            response.header('Access-Control-Allow-Headers', 'Content-Type');
+            
             data.getPlacesAsync().then(function (places) {
-                response.setHeader('Cache-Control', 'private, max-age=30');
+                response.setHeader('Cache-Control', 'public, max-age=30');
                 response.json({
                     places: places
                 });
@@ -39,6 +51,11 @@ class Places {
         });
 
         app.post('/api/places', function (request, response) {
+
+            response.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+            response.header('Access-Control-Allow-Methods', 'GET,POST');
+            response.header('Access-Control-Allow-Headers', 'Content-Type');
+
             let newPlace = request.body;
 
             var onlyIf = function () {
@@ -83,7 +100,7 @@ class Places {
 
             return data.savePlaceAsync(newPlace).then(function () {
                 response.setHeader('Location', `/api/places/${newPlace.id}`);
-                response.status(204).json(newPlace);
+                response.status(201).json();
             });
         });
 

@@ -6,7 +6,7 @@ describe('Places/controller', () => {
     it('GET /api/places/2 should respond a http 200 OK', () => {
 
         const app = require('../app');
-        request(app)
+        return request(app)
             .get('/api/places/2')
             .expect('Content-Type', /json/)
             .expect(200)
@@ -18,7 +18,7 @@ describe('Places/controller', () => {
     it('GET /api/places/youhou should respond a http 404', () => {
 
         const app = require('../app');
-        request(app)
+        return request(app)
             .get('/api/places/youhou')
             .expect('Content-Type', /json/)
             .expect(404)
@@ -36,14 +36,11 @@ describe('Places/controller', () => {
             image: null
         };
         const app = require('../app');
-        request(app)
+        return request(app)
             .post('/api/places')
             .send(newPlace)
             .expect('Location', /places/)
-            .expect(204)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
+            .expect(201);
     });
 
     it('POST /api/places should respond a http 204 OK with an image', () => {
@@ -58,14 +55,11 @@ describe('Places/controller', () => {
             }
         };
         const app = require('../app');
-        request(app)
+        return request(app)
             .post('/api/places')
             .send(newPlace)
             .expect('Location', /places/)
-            .expect(204)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
+            .expect(201);
 
     });
 
@@ -78,14 +72,11 @@ describe('Places/controller', () => {
             image: null
         };
         const app = require('../app');
-        request(app)
+        return request(app)
             .post('/api/places')
             .send(newPlace)
             .expect('Content-Type', /json/)
-            .expect(400)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
+            .expect(400);
 
     });
 
@@ -97,52 +88,42 @@ describe('Places/controller', () => {
             author: 'Patrickmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
             review: 2,
             image: {
-                  url: 'https://www.bworld.fr/api/file/get/c27e39ee-7ba9-46f8-aa7c-9e334c72a96c/d9d0634b-b1a0-42bd-843d-d3bc3cf7d842/ImageThumb/bworld-2016-v3.png',
-                  title: ''
-              }
+                url: 'https://www.bworld.fr/api/file/get/c27e39ee-7ba9-46f8-aa7c-9e334c72a96c/d9d0634b-b1a0-42bd-843d-d3bc3cf7d842/ImageThumb/bworld-2016-v3.png',
+                title: ''
+            }
         };
-        request(app)
+        return request(app)
             .post('/api/places')
             .send(newPlace)
             .expect('Content-Type', /json/)
-            .expect(400)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
+            .expect(400);
 
     });
- 
-    /*it('GET /api/places should respond a http 200 OK', () => {
+
+    it('GET /api/places should respond a http 200 OK', () => {
 
         const app = require('../app');
-        request(app)
+        return request(app)
             .get('/api/places')
             .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
+            .expect(200);
 
     });
 
     it('DELETE /api/places/3 should respond a http 200 OK', () => {
 
         const app = require('../app');
-        request(app)
+        var promise = request(app)
             .delete('/api/places')
             .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
+            .expect(200);
 
-        request(app)
-            .delete('/api/places')
-            .expect('Content-Type', /json/)
-            .expect(404)
-            .end(function (err, res) {
-                if (err) throw err;
-            });
-
-    });*/
+        promise.then(function () {
+            return request(app)
+                .delete('/api/places')
+                .expect('Content-Type', /json/)
+                .expect(404);
+        });
+        return promise;
+    });
 });
