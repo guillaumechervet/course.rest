@@ -45,10 +45,11 @@ describe('Place/data', () => {
 
     it('should delete a place then fail to delete it again', () => {
         const data = new Data();
-        data.deletePlaceAsync('3').then(function (success) {
+        return data.deletePlaceAsync('3').then(function (success) {
             assert.ok(success);
-        }).then(function (success) {
-            assert.ko(success);
+            return data.deletePlaceAsync('3').then(function (success) {
+                assert.ok(!success);
+            });
         });
     });
 
