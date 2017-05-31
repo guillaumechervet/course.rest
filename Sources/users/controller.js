@@ -1,7 +1,10 @@
-var validation = require('mw.validation');
+var jwt = require('express-jwt');
+var validation = require('mw-validation');
 
 class Users {
     constructor(app) {
+
+        app.use(jwt({secret: 'secret'}).unless({path:['/api/users/login']}));
 
         app.options('/api/users/login', function (request, response) {
             response.header('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -28,8 +31,9 @@ class Users {
                 response.status(400).json(validationResult.detail);
                 return;
             }
+            var token = jwt.sign({username:'username'}, 'secret');
 
-            response.status(200).json();
+            response.status(200).json({jwt:token});
         });
 
     }

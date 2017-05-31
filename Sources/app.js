@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Places = require('./places/controller');
+const Users = require('./users/controller');
 const Data = require('./places/data');
 const Files = require('./files/controller');
 const packageJson = require('../package.json');
@@ -28,6 +29,7 @@ class App {
 
         new Files(app);
         new Places(app, new Data());
+        new Users(app);
 
         app.get('/api/version', function (request, response) {
             response.json({
