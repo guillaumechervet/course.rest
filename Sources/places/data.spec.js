@@ -47,8 +47,9 @@ describe('Place/data', () => {
         const data = new Data();
         return data.deletePlaceAsync('3').then(function (success) {
             assert.ok(success);
-        }).then(function (success) {
-            assert.ok(!success);
+            return data.deletePlaceAsync('3').then(function (success) {
+                assert.ok(!success);
+            });
         });
     });
 

@@ -1,7 +1,7 @@
 var validation = require('mw.validation');
 
 class Users {
-    constructor(app, data) {
+    constructor(app) {
 
         app.options('/api/users/login', function (request, response) {
             response.header('Access-Control-Allow-Origin', 'http://localhost:3000');
