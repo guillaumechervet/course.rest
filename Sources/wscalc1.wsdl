@@ -4,15 +4,15 @@
     <wsdl:part name="a" type="xs:integer"/>
     <wsdl:part name="b" type="xs:integer"/>
   </wsdl:message>
+  <wsdl:message name="sumarResponse">
+    <wsdl:part name="sumres" type="xs:integer"/>
+  </wsdl:message>
   <wsdl:message name="multiplicarRequest">
     <wsdl:part name="a" type="xs:integer"/>
     <wsdl:part name="b" type="xs:integer"/>
   </wsdl:message>
   <wsdl:message name="multiplicarResponse">
     <wsdl:part name="mulres" type="xs:integer"/>
-  </wsdl:message>
-  <wsdl:message name="sumarResponse">
-    <wsdl:part name="sumres" type="xs:integer"/>
   </wsdl:message>
   <wsdl:portType name="calcP">
     <wsdl:operation name="sumar">
