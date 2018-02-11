@@ -8,7 +8,7 @@
     "npm": "3.10.10"
   },
   "scripts": {
-    "lint": "\".\\node_modules\\.bin\\eslint\" ./Sources/**/*.js",
+    "lint": "eslint ./Sources/**/*.js",
     "lint:watch": "watch \"npm run lint\" ./Sources",
     "test": "mocha --require ./configureMocha.js ./Sources/**/*.spec.js",
     "test:watch": "mocha --watch --require ./configureMocha.js ./Sources/**/*.spec.js",
@@ -20,19 +20,19 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.13.0",
-    "express-fileupload": "^0.1.2",
+    "express-fileupload": "^0.4.0",
     "lodash": "^4.17.4",
     "mw.validation": "^1.0.9",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "cross-env": "^3.1.4",
+    "cross-env": "^5.1.3",
     "eslint": "latest",
     "istanbul": "^0.4.5",
     "mockery": "^2.0.0",
     "nodemon": "latest",
-    "parallelshell": "^2.0.0",
-    "sinon": "^1.17.6",
+    "parallelshell": "^3.0.2",
+    "sinon": "^4.3.0",
     "sinon-bluebird": "^3.1.0",
     "sinon-chai": "^2.8.0",
     "supertest": "^3.0.0",

@@ -1,7 +1,9 @@
-var Promise = require('bluebird');
-var _ = require('lodash');
+const Promise = require('bluebird');
+const _ = require('lodash');
 const uuidV1 = require('uuid/v1');
-const _data = require('./data.json');
+const jsonData = require('./data.json');
+
+const cloneJsonData = _.cloneDeep(jsonData);
 
 function waitAsync(data) {
     const deferred = Promise.defer();
@@ -11,26 +13,29 @@ function waitAsync(data) {
         deferred.resolve(data);
     }, msToWait);
 
-    return deferred.promise;
+    return deferred.promise; 
 }
 
-function _loadAsync() {
+function _loadAsync(_data) {
     return waitAsync(_.cloneDeep(_data));
 }
 
-function _saveAsync(data) {
+function _saveAsync(data, _data) {
     Object.assign(_data, data);
-    return waitAsync(); // Promise.resolve()
+    return waitAsync();
 }
 
 class Data {
+    constructor(){
+        this._data = cloneJsonData;
+    }
 
     getPlacesAsync() {
-        return _loadAsync().then((data) => data.places);
+        return _loadAsync(this._data).then((data) => data.places);
     }
 
     getPlaceAsync(id) {
-        return _loadAsync().then(function (data) {
+        return _loadAsync(this._data).then(function (data) {
             const places = data.places;
             let place = _.find(places, {
                 'id': id
@@ -40,7 +45,8 @@ class Data {
     }
 
     savePlaceAsync(place) {
-        return _loadAsync().then(function (data) {
+        var _self = this;
+        return _loadAsync(this._data).then(function (data) {
             const places = data.places;
             if (!place.id) {
                 // insert
@@ -55,12 +61,13 @@ class Data {
                 });
                 places.push(place);
             }
-            return _saveAsync(data);
+            return _saveAsync(data, _self._data);
         });
     }
 
     deletePlaceAsync(id) {
-        return _loadAsync().then(function (data) {
+        var _self = this;
+        return _loadAsync(this._data).then(function (data) {
             let places = data.places;
             let place = _.find(places, {
                 'id': id
@@ -73,10 +80,9 @@ class Data {
             }
             return _saveAsync({
                 places
-            }).then(() => true);
+            }, _self._data).then(() => true);
         });
     }
 }
-
 
 module.exports = Data;
