@@ -1,8 +1,9 @@
-const request = require('supertest');
+/*const request = require('supertest');
+const { describe, it } = require('mocha');
 
 describe('Files/controller', () => {
 
-  /*  it('GET /api/places should respond a http 200 OK', () => {
+    it('GET /api/places should respond a http 200 OK', () => {
 
         const app = require('../app');
         request(app)
@@ -13,6 +14,7 @@ describe('Files/controller', () => {
                 if (err) throw err;
             });
 
-    });*/
+    });
 
 });
+*/

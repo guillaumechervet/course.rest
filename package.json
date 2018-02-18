@@ -8,7 +8,7 @@
     "npm": "3.10.8"
   },
   "scripts": {
-    "lint": "\".\\node_modules\\.bin\\eslint\" ./Sources/**/*.js",
+    "lint": "eslint ./Sources/**/*.js",
     "lint:watch": "watch \"npm run lint\" ./Sources",
     "test": "mocha --require ./configureMocha.js ./Sources/**/*.spec.js",
     "test:watch": "mocha --watch --require ./configureMocha.js ./Sources/**/*.spec.js",

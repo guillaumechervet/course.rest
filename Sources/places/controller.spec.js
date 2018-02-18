@@ -1,6 +1,7 @@
 const request = require('supertest');
 const assert = require('assert');
 const App = require('../app');
+const { describe, it } = require('mocha');
 
 describe('Places/controller', () => {
 
@@ -127,7 +128,7 @@ describe('Places/controller', () => {
         return promise;
     });
 
- /*   it('PUT /api/places/3 should respond a http 204 OK', () => {
+    /*   it('PUT /api/places/3 should respond a http 204 OK', () => {
         const app = require('../app');
         var placeToUpdate = {
             id: '3',
