@@ -1,8 +1,8 @@
 const App = require('./app');
 
-const app = (new App()).app; 
+const app = new App().app;
 
-var server = app.listen(8081, function () {
+var server = app.listen(8082, function() {
     var host = server.address().address;
     var port = server.address().port;
 

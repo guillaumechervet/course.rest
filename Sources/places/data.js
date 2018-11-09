@@ -1,18 +1,19 @@
-var Promise = require('bluebird');
-var _ = require('lodash');
+const Promise = require('bluebird');
+const _ = require('lodash');
 const uuidV1 = require('uuid/v1');
-var jsonData = require('./data.json');
-var cloneJsonData = _.cloneDeep(jsonData);
+const jsonData = require('./data.json');
+
+const cloneJsonData = _.cloneDeep(jsonData);
 
 function waitAsync(data) {
     const deferred = Promise.defer();
 
-    const msToWait = Math.floor((Math.random() * 400) + 1);
-    setTimeout(function () {
+    const msToWait = Math.floor(Math.random() * 400 + 1);
+    setTimeout(function() {
         deferred.resolve(data);
     }, msToWait);
 
-    return deferred.promise; 
+    return deferred.promise;
 }
 
 function _loadAsync(_data) {
@@ -21,55 +22,57 @@ function _loadAsync(_data) {
 
 function _saveAsync(data, _data) {
     Object.assign(_data, data);
-    return waitAsync(); // Promise.resolve()
+    return waitAsync();
 }
 
 class Data {
-    constructor(){
+    constructor() {
         this._data = cloneJsonData;
     }
 
     getPlacesAsync() {
-        return _loadAsync(this._data).then((data) => data.places);
+        return _loadAsync(this._data).then(data => _.cloneDeep(data.places));
     }
 
     getPlaceAsync(id) {
-        return _loadAsync(this._data).then(function (data) {
+        return _loadAsync(this._data).then(function(data) {
             const places = data.places;
             let place = _.find(places, {
-                'id': id
+                id: id
             });
-            return place;
+            return _.cloneDeep(place);
         });
     }
 
     savePlaceAsync(place) {
         var _self = this;
-        return _loadAsync(this._data).then(function (data) {
+        return _loadAsync(this._data).then(function(data) {
             const places = data.places;
+            let id;
             if (!place.id) {
                 // insert
-                let id = uuidV1();
-                place.id = id;
-                let newPlace = Object.assign({}, place);
+                id = uuidV1();
+                let newPlace = _.cloneDeep(place);
+                newPlace.id = id;
                 places.push(newPlace);
             } else {
                 // replace
+                id = place.id;
                 _.remove(places, {
-                    id: place.id
+                    id
                 });
-                places.push(place);
+                places.push(_.cloneDeep(place));
             }
-            return _saveAsync(data, _self._data);
+            return _saveAsync(data, _self._data).then(() => id);
         });
     }
 
     deletePlaceAsync(id) {
         var _self = this;
-        return _loadAsync(this._data).then(function (data) {
+        return _loadAsync(this._data).then(function(data) {
             let places = data.places;
             let place = _.find(places, {
-                'id': id
+                id: id
             });
             if (place !== undefined) {
                 var index = places.indexOf(place);
@@ -77,12 +80,14 @@ class Data {
             } else {
                 return false;
             }
-            return _saveAsync({
-                places
-            }, _self._data).then(() => true);
+            return _saveAsync(
+                {
+                    places
+                },
+                _self._data
+            ).then(() => true);
         });
     }
 }
-
 
 module.exports = Data;
