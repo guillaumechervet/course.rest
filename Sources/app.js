@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Places = require('./places/controller');
+const GraphqlPlaces = require('./places/graphql');
 const Users = require('./users/controller');
 const Data = require('./places/data');
 const Files = require('./files/controller');
@@ -10,12 +11,14 @@ class App {
     constructor() {
         const app = express();
 
-        app.use(bodyParser.urlencoded({
-            extended: true
-        }));
+        app.use(
+            bodyParser.urlencoded({
+                extended: true
+            })
+        );
         app.use(bodyParser.json());
 
-        var middlewareHttp = function (request, response, next) {
+        var middlewareHttp = function(request, response, next) {
             response.setHeader('Accept', 'application/json');
             response.setHeader('Api-version', packageJson.version);
 
@@ -30,14 +33,15 @@ class App {
         new Files(app);
         new Places(app, new Data());
         new Users(app);
+        new GraphqlPlaces(app, new Data());
 
-        app.get('/api/version', function (request, response) {
+        app.get('/api/version', function(request, response) {
             response.json({
                 version: packageJson.version
             });
         });
 
-        var middleware404 = function (request, response) {
+        var middleware404 = function(request, response) {
             response.json({
                 key: 'not.found'
             });
@@ -45,16 +49,15 @@ class App {
         app.use(middleware404);
 
         // eslint-disable-next-line no-unused-vars
-        app.use(function (error, request, response, next) {
+        app.use(function(error, request, response, next) {
             console.error(error.stack);
             response.status(500).json({
                 key: 'server.error'
             });
         });
 
-        this.app=app;
+        this.app = app;
     }
-
 }
 
 module.exports = App;
