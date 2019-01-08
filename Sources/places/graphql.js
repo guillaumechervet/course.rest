@@ -95,11 +95,17 @@ type Course {
     url: String
 }
 type Place {
-    id: Int
+    id: ID
     name: String
     review: Int
-    image: String
+    image: File
 }
+
+type File {
+  url: String
+  title: String
+}
+
 `);
     // Root resolver
     var root = {

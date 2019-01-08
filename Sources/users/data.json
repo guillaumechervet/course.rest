@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "firstName": "Guillaume",
+      "lastName": "Chervet",
+      "username": "guillaume.chervet",
+      "password": "youhou"
+    },
+    {
+      "id": "2",
+      "firstName": "Geoffrey",
+      "lastName": "Parquet",
+      "username": "geoffrey.parquet",
+      "password": "password"
+    },
+    {
+      "id": "3",
+      "firstName": "Lucie",
+      "lastName": "Nicolette",
+      "username": "lucie.nicolette",
+      "password": "secure"
+    }
+  ]
+}
