@@ -1,14 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Places = require('./places/controller');
+const Comments = require('./comments/controller');
 const GraphqlPlaces = require('./places/graphql');
 const Users = require('./users/controller');
-const Data = require('./places/data');
+const Data = require('./data');
 const Files = require('./files/controller');
 const packageJson = require('../package.json');
 const chalk = require('chalk');
 const log = console.log;
-
+/*
 const getReponseBody = response => {
     const oldWrite = response.write,
         oldEnd = response.end;
@@ -24,7 +25,7 @@ const getReponseBody = response => {
         oldEnd.apply(response, arguments);
     };
     return () => body;
-};
+};*/
 
 class App {
     constructor() {
@@ -47,11 +48,11 @@ class App {
             response.setHeader('Api-version', packageJson.version);
             log(
                 chalk.white.bgBlack(
-                    `----------------------------------------------------- ${new Date()}`
+                    '----------------------------------------------------- '
                 )
             );
-            log(chalk.bold('request.url :'));
-            log(chalk.white.bgYellow.underline(`${request.method} ${request.url}`));
+            log(chalk.bold('request.url :') + chalk(new Date()));
+            log(chalk.black.bgYellow.underline(`${request.method} ${request.url}`));
             log(chalk.bold('request.headers :'));
             log(chalk.green(`${JSON.stringify(request.headers, null, 2)}`));
             if (request.body && Object.keys(request.body).length > 0) {
@@ -59,15 +60,15 @@ class App {
                 log(chalk.green(`${JSON.stringify(request.body, null, 2)}`));
             }
 
-            const getBody = getReponseBody(response);
+            //const getBody = getReponseBody(response);
             response.on('finish', () => {
                 log(chalk.bold('response.headers :'));
                 log(chalk.blue(`${JSON.stringify(response.getHeaders(), null, 2)}`));
-                const body = getBody();
+                /*const body = getBody();
                 if (body && Object.keys(body).length > 0) {
                     log(chalk.bold('response.body :'));
                     log(chalk.blue(`${JSON.stringify(request.body, null, 2)}`));
-                }
+                }*/
             });
 
             next();
@@ -77,7 +78,8 @@ class App {
         new Files(app);
         var placeData = new Data(require('./places/data.json'));
         new Places(app, placeData);
-        new Users(app);
+        new Users(app, new Data(require('./users/data.json')));
+        new Comments(app, new Data(require('./comments/data.json')));
         new GraphqlPlaces(app, placeData);
 
         app.get('/api/version', function(request, response) {

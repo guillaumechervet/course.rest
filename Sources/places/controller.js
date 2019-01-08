@@ -14,7 +14,7 @@ class Places {
             response.header('Access-Control-Allow-Methods', 'GET,POST');
             response.header('Access-Control-Allow-Headers', 'Content-Type');
 
-            data.getPlacesAsync().then(function(places) {
+            data.getAllAsync().then(function(places) {
                 response.setHeader('Cache-Control', 'public, max-age=30');
                 response.json({
                     places: places
@@ -24,7 +24,7 @@ class Places {
 
         app.get('/api/places/:id', function(request, response) {
             let id = request.params.id;
-            return data.getPlaceAsync(id).then(function(place) {
+            return data.getAsync(id).then(function(place) {
                 if (place !== undefined) {
                     response.status(200).json(place);
                     return;
@@ -37,7 +37,7 @@ class Places {
 
         app.delete('/api/places/:id', function(request, response) {
             var id = request.params.id;
-            data.deletePlaceAsync(id).then(function(success) {
+            data.deleteAsync(id).then(function(success) {
                 if (success) {
                     response.status(204).json();
                 } else {
@@ -55,7 +55,7 @@ class Places {
 
             let newPlace = request.body;
 
-            var onlyIf = function() {
+            const onlyIf = function() {
                 if (newPlace.image && newPlace.image.url) {
                     return true;
                 }
@@ -106,7 +106,7 @@ class Places {
                 return;
             }
 
-            return data.savePlaceAsync(newPlace).then(function() {
+            return data.saveAsync(newPlace).then(function() {
                 response.setHeader('Location', `/api/places/${newPlace.id}`);
                 response.status(201).json();
             });
@@ -166,14 +166,14 @@ class Places {
                 return;
             }
 
-            return data.getPlaceAsync(id).then(function(place) {
+            return data.getAsync(id).then(function(place) {
                 if (place === undefined) {
                     response.status(404).json({
                         message: 'entity.not.found'
                     });
                     return;
                 }
-                data.savePlaceAsync(newPlace).then(function() {
+                data.saveAsync(newPlace).then(function() {
                     response.status(204).json();
                 });
             });
@@ -232,7 +232,7 @@ class Places {
                 return;
             }
 
-            return data.getPlaceAsync(id).then(function(place) {
+            return data.getAsync(id).then(function(place) {
                 if (place === undefined) {
                     response.status(404).json({
                         message: 'entity.not.found'
@@ -240,7 +240,7 @@ class Places {
                     return;
                 }
                 Object.assign(place, newData);
-                return data.savePlaceAsync(place).then(function() {
+                return data.saveAsync(place).then(function() {
                     response.status(204).json();
                 });
             });

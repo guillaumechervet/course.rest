@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "refId": "1",
+      "link": "http://localhost:8080/places/1",
+      "userId": "1",
+      "comment": "The badge itself looks fine but it does not allow to go to sonarcloud project and instead leads to camo.githubusercontent.com. What link should I use to access the sonarcloud project?"
+    },
+    {
+      "id": "2",
+      "refId": "2",
+      "link": "http://localhost:8080/places/2",
+      "userId": "1",
+      "comment": "ceci est un test"
+    },
+    {
+      "id": "2",
+      "refId": "1",
+      "link": "http://localhost:8080/places/1",
+      "userId": "2",
+      "comment": "Ceci est un commentaire pipé"
+    }
+  ]
+}

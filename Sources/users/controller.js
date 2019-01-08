@@ -2,14 +2,27 @@ var jwt = require('jsonwebtoken');
 var validation = require('mw.validation');
 
 class Users {
-    constructor(app) {
+    constructor(app, data) {
     // app.use(jwt({ secret: 'secret' }).unless({ path: ['/api/users/login'] }));
 
-        app.options('/api/users/login', function(request, response) {
+        app.options('/api/users/*', function(request, response) {
             response.header('Access-Control-Allow-Origin', 'http://localhost:3000');
             response.header('Access-Control-Allow-Methods', 'POST');
             response.header('Access-Control-Allow-Headers', 'Content-Type');
             response.json();
+        });
+
+        app.get('/api/users', function(request, response) {
+            response.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+            response.header('Access-Control-Allow-Methods', 'GET,POST');
+            response.header('Access-Control-Allow-Headers', 'Content-Type');
+
+            data.getAllAsync().then(function(users) {
+                response.setHeader('Cache-Control', 'public, max-age=30');
+                response.json({
+                    users
+                });
+            });
         });
 
         app.post('/api/users/login', function(request, response) {

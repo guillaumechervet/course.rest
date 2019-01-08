@@ -25,13 +25,13 @@ class Data {
     this._data = _.cloneDeep(jsonData);
   }
 
-  getPlacesAsync() {
-    return this._loadAsync(this._data).then(data => data.places);
+  getAllAsync() {
+    return this._loadAsync(this._data).then(data => data.data);
   }
 
-  getPlaceAsync(id) {
+  getAsync(id) {
     return this._loadAsync(this._data).then(function(data) {
-      const places = data.places;
+      const places = data.data;
       let place = _.find(places, {
         id: id
       });
@@ -39,10 +39,10 @@ class Data {
     });
   }
 
-  savePlaceAsync(place) {
+  saveAsync(place) {
     var _self = this;
     return this._loadAsync(this._data).then(function(data) {
-      const places = data.places;
+      const places = data.data;
       if (!place.id) {
         // insert
         let id = uuidV1();
@@ -60,10 +60,10 @@ class Data {
     });
   }
 
-  deletePlaceAsync(id) {
+  deleteAsync(id) {
     var _self = this;
     return this._loadAsync(this._data).then(function(data) {
-      let places = data.places;
+      let places = data.data;
       let place = _.find(places, {
         id: id
       });

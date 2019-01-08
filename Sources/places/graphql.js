@@ -66,7 +66,7 @@ class GraphQLPlaces {
         `);*/
 
     var getPlaces = async args => {
-      const places = await data.getPlacesAsync();
+      const places = await data.getAllAsync();
       if (args.name) {
         var name = args.name;
         return places.filter(place => place.name === name);

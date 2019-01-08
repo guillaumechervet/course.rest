@@ -1,4 +1,4 @@
-const Data = require('./data');
+const Data = require('../data');
 const assert = require('assert');
 
 describe('Place/data', () => {
@@ -6,14 +6,14 @@ describe('Place/data', () => {
 
     it('should return an array of place', () => {
         const data = init();
-        data.getPlacesAsync().then(function(places) {
+        data.getAllAsync().then(function(places) {
             assert.ok(Array.isArray(places));
         });
     });
 
     it('should get a place', () => {
         const data = init();
-        return data.getPlaceAsync('1').then(function(place) {
+        return data.getAsync('1').then(function(place) {
             assert.equal(place.name, 'Londre');
         });
     });
@@ -26,7 +26,7 @@ describe('Place/data', () => {
             review: 3,
             image: null
         };
-        return data.savePlaceAsync(place).then(function() {
+        return data.saveAsync(place).then(function() {
             assert.notEqual(place.id, undefined);
         });
     });
@@ -40,16 +40,16 @@ describe('Place/data', () => {
             review: 3,
             image: null
         };
-        return data.savePlaceAsync(place).then(function() {
+        return data.saveAsync(place).then(function() {
             assert.ok(true);
         });
     });
 
     it('should delete a place then fail to delete it again', () => {
         const data = init();
-        return data.deletePlaceAsync('3').then(function(success) {
+        return data.deleteAsync('3').then(function(success) {
             assert.ok(success);
-            return data.deletePlaceAsync('3').then(function(success) {
+            return data.deleteAsync('3').then(function(success) {
                 assert.ok(!success);
             });
         });
