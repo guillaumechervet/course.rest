@@ -8,12 +8,12 @@
     "npm": "3.10.8"
   },
   "scripts": {
-    "lint": "\".\\node_modules\\.bin\\eslint\" ./Sources/**/*.js",
-    "lint:watch": "watch \"npm run lint\" ./Sources",
-    "test": "mocha --require ./configureMocha.js ./Sources/**/*.spec.js",
-    "test:watch": "mocha --watch --require ./configureMocha.js ./Sources/**/*.spec.js",
-    "server": "node ./Sources/server.js",
-    "start": "nodemon ./Sources/server.js",
+    "lint": "\".\\node_modules\\.bin\\eslint\" ./src/**/*.js",
+    "lint:watch": "watch \"npm run lint\" ./src",
+    "test": "mocha --require ./configureMocha.js ./src/**/*.spec.js",
+    "test:watch": "mocha --watch --require ./configureMocha.js ./src/**/*.spec.js",
+    "server": "node ./src/server.js",
+    "start": "nodemon ./src/server.js",
     "build": "npm run lint && npm run server",
     "build:watch": "parallelshell \"npm run server:watch\" \"npm run lint:watch\""
   },
@@ -45,6 +45,6 @@
     "supertest": "^3.0.0",
     "watch": "latest"
   },
-  "main": "Sources/server.js",
+  "main": "src/server.js",
   "license": "ISC"
 }
