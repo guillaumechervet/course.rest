@@ -5,14 +5,20 @@
       "name": "Londre",
       "author": "Patrick",
       "review": 2,
-      "image": null
+      "image": null,
+      "user": {
+        "id": "1"
+      }
     },
     {
       "id": "2",
       "name": "Lens",
       "author": "Louis",
       "review": 3,
-      "image": null
+      "image": null,
+      "user": {
+        "id": "1"
+      }
     },
     {
       "id": "3",
@@ -22,6 +28,9 @@
       "image": {
         "url": "http://localhost:8081/api/files/7577fcc0-0580-11e7-a2b8-5dcb02604871_hackathon.PNG",
         "title": "Lieu naturel"
+      },
+      "user": {
+        "id": "2"
       }
     }
   ]

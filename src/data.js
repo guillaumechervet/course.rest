@@ -42,21 +42,23 @@ class Data {
   saveAsync(place) {
     var _self = this;
     return this._loadAsync(this._data).then(function(data) {
+      let id = null;
       const places = data.data;
       if (!place.id) {
         // insert
-        let id = uuidV1();
-        place.id = id;
+        id = uuidV1();
         let newPlace = Object.assign({}, place);
+        newPlace.id = id;
         places.push(newPlace);
       } else {
         // replace
+        id = place.id;
         _.remove(places, {
           id: place.id
         });
         places.push(place);
       }
-      return _self._saveAsync(data, _self._data);
+      return _self._saveAsync(data, _self._data).then(() => id);
     });
   }
 

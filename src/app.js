@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Places = require('./places/controller');
 const Comments = require('./comments/controller');
+const Graphql = require('./graphql');
 const GraphqlPlaces = require('./places/graphql');
 const Users = require('./users/controller');
 const Data = require('./data');
@@ -80,7 +81,11 @@ class App {
         new Places(app, placeData);
         new Users(app, new Data(require('./users/data.json')));
         new Comments(app, new Data(require('./comments/data.json')));
-        new GraphqlPlaces(app, placeData);
+
+        /* const graphs = {
+            places: new GraphqlPlaces(placeData)
+        };*/
+        new Graphql(app);
 
         app.get('/api/version', function(request, response) {
             response.json({
