@@ -1,23 +1,33 @@
 var validation = require('mw.validation');
 
 const mapLinks = place => {
-  return {
+  const newPlace = {
     ...place,
     commments: {
       link: `http://localhost:8080/api/comments?reference.id=${
         place.id
       }&reference.type=place`
     },
-    user: {
-      ...place.user,
-      link: `http://localhost:8080/api/user/${place.user.id}`
+    author: {
+      ...place.author,
+      link: `http://localhost:8080/api/user/${place.author.id}`
+    },
+    image: {
+      ...place.image,
+      link: place.image
+        ? `http://localhost:8080/api/files/${place.image.id}_${
+            place.image.filename
+          }`
+        : null
     }
   };
+
+  return newPlace;
 };
 
 const filterQuery = query => comment => {
-  const userId = query['user.id'];
-  if (userId && comment.user.id !== userId) {
+  const authorId = query['author.id'];
+  if (authorId && comment.author.id !== authorId) {
     return false;
   }
 
@@ -104,7 +114,7 @@ class Places {
             }
           }
         ],
-        author: ['required'],
+        '@author': { id: ['required'] },
         review: ['required', 'digit'],
         '@image': {
           url: ['url'],
@@ -164,7 +174,7 @@ class Places {
             }
           }
         ],
-        author: ['required'],
+        '@author': { id: ['required'] },
         review: ['required', 'digit'],
         '@image': {
           url: ['url'],
@@ -230,7 +240,7 @@ class Places {
             }
           }
         ],
-        author: ['url'],
+        '@author': { id: ['required'] },
         review: ['digit'],
         '@image': {
           url: [],
@@ -242,9 +252,6 @@ class Places {
               }
             }
           ]
-        },
-        '@user': {
-          id: ['required']
         }
       };
       var validationResult = validation.objectValidation.validateModel(

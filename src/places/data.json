@@ -3,33 +3,34 @@
     {
       "id": "1",
       "name": "Londre",
-      "author": "Patrick",
       "review": 2,
       "image": null,
-      "user": {
+      "author": {
         "id": "1"
       }
     },
     {
       "id": "2",
       "name": "Lens",
-      "author": "Louis",
       "review": 3,
-      "image": null,
-      "user": {
+      "image": {
+        "id": "da0337d0-fee5-11e8-93b1-61c607a98af0",
+        "filename": "devdays.PNG"
+      },
+      "author": {
         "id": "1"
       }
     },
     {
       "id": "3",
       "name": "Ploufragan",
-      "author": "Guillaume",
       "review": 3,
       "image": {
-        "url": "http://localhost:8081/api/files/7577fcc0-0580-11e7-a2b8-5dcb02604871_hackathon.PNG",
+        "id": "696499b0-036d-11e9-aa1f-f76a5ea1affa",
+        "filename": "Render_Carte_France.png",
         "title": "Lieu naturel"
       },
-      "user": {
+      "author": {
         "id": "2"
       }
     }

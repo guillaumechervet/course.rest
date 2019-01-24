@@ -5,10 +5,10 @@ const mapLinks = user => {
   return {
     ...user,
     commments: {
-      link: `http://localhost:8080/api/comments?user.id=${user.id}`
+      link: `http://localhost:8080/api/comments?author.id=${user.id}`
     },
     places: {
-      link: `http://localhost:8080/api/places?user.id=${user.id}`
+      link: `http://localhost:8080/api/places?author.id=${user.id}`
     }
   };
 };

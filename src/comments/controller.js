@@ -7,16 +7,16 @@ const mapLinks = comment => {
       ...comment.reference,
       link: `http://localhost:8080/api/places/${comment.reference.id}`
     },
-    user: {
-      ...comment.user,
-      link: `http://localhost:8080/api/user/${comment.user.id}`
+    author: {
+      ...comment.author,
+      link: `http://localhost:8080/api/user/${comment.author.id}`
     }
   };
 };
 
 const filterQuery = query => comment => {
-  const userId = query['user.id'];
-  if (userId && comment.user.id !== userId) {
+  const authorId = query['author.id'];
+  if (authorId && comment.author.id !== authorId) {
     return false;
   }
 
@@ -88,7 +88,7 @@ class Comments {
           id: ['required'],
           type: ['required']
         },
-        '@user': { id: ['required'] }
+        '@author': { id: ['required'] }
       };
       var validationResult = validation.objectValidation.validateModel(
         newComment,
