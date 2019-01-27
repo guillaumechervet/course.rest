@@ -10,11 +10,11 @@
         },
         "repositoryUrl": {
             "type": "string",
-            "defaultValue": "https://github.com/sdib/netcorelive.git"
+            "defaultValue": "https://github.com/guillaumechervet/course.rest.git"
         },
         "repositoryBranch": {
             "type": "string",
-            "defaultValue": "devoxx"
+            "defaultValue": "grapqh"
         },
         "servicePlanSKU": {
             "type": "string",
