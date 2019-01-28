@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "guillaume.chervet",
   "engines": {
-    "node": "6.9.1",
+    "node": "8.9.4",
     "npm": "3.10.8"
   },
   "scripts": {

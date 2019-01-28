@@ -1,14 +1,16 @@
 var jwt = require('jsonwebtoken');
 var validation = require('mw.validation');
+var serverUtil = require('../serverUtil');
 
-const mapLinks = user => {
+const mapLinks = request => user => {
+  const baseUrl = serverUtil.getBaseUrl(request);
   return {
     ...user,
     commments: {
-      link: `http://localhost:8080/api/comments?author.id=${user.id}`
+      link: `${baseUrl}/api/comments?author.id=${user.id}`
     },
     places: {
-      link: `http://localhost:8080/api/places?author.id=${user.id}`
+      link: `${baseUrl}/api/places?author.id=${user.id}`
     }
   };
 };
@@ -32,7 +34,7 @@ class Users {
       data.getAllAsync().then(function(users) {
         response.setHeader('Cache-Control', 'public, max-age=30');
         response.json({
-          users: users.map(mapLinks)
+          users: users.map(mapLinks(request))
         });
       });
     });
@@ -41,7 +43,7 @@ class Users {
       let id = request.params.id;
       return data.getAsync(id).then(function(user) {
         if (user) {
-          response.status(200).json(mapLinks(user));
+          response.status(200).json(mapLinks(request)(user));
           return;
         }
         response.status(404).json({

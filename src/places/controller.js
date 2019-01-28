@@ -1,23 +1,23 @@
 var validation = require('mw.validation');
+var serverUtil = require('../serverUtil');
 
-const mapLinks = place => {
+const mapLinks = request => place => {
+  const baseUrl = serverUtil.getBaseUrl(request);
   const newPlace = {
     ...place,
     commments: {
-      link: `http://localhost:8080/api/comments?reference.id=${
+      link: `${baseUrl}/api/comments?reference.id=${
         place.id
       }&reference.type=place`
     },
     author: {
       ...place.author,
-      link: `http://localhost:8080/api/user/${place.author.id}`
+      link: `${baseUrl}/api/user/${place.author.id}`
     },
     image: {
       ...place.image,
       link: place.image
-        ? `http://localhost:8080/api/files/${place.image.id}_${
-            place.image.filename
-          }`
+        ? `${baseUrl}/api/files/${place.image.id}_${place.image.filename}`
         : null
     }
   };
@@ -51,7 +51,9 @@ class Places {
       data.getAllAsync().then(function(places) {
         response.setHeader('Cache-Control', 'public, max-age=30');
         response.json({
-          places: places.map(mapLinks).filter(filterQuery(request.query))
+          places: places
+            .map(mapLinks(request))
+            .filter(filterQuery(request.query))
         });
       });
     });
@@ -60,7 +62,7 @@ class Places {
       let id = request.params.id;
       return data.getAsync(id).then(function(place) {
         if (place !== undefined) {
-          response.status(200).json(mapLinks(place));
+          response.status(200).json(mapLinks(request)(place));
           return;
         }
         response.status(404).json({

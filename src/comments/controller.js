@@ -1,15 +1,17 @@
 var validation = require('mw.validation');
+var serverUtil = require('../serverUtil');
 
-const mapLinks = comment => {
+const mapLinks = request => comment => {
+  const baseUrl = serverUtil.getBaseUrl(request);
   return {
     ...comment,
     reference: {
       ...comment.reference,
-      link: `http://localhost:8080/api/places/${comment.reference.id}`
+      link: `${baseUrl}/api/places/${comment.reference.id}`
     },
     author: {
       ...comment.author,
-      link: `http://localhost:8080/api/user/${comment.author.id}`
+      link: `${baseUrl}/api/user/${comment.author.id}`
     }
   };
 };
@@ -50,7 +52,9 @@ class Comments {
       data.getAllAsync().then(function(comments) {
         response.setHeader('Cache-Control', 'public, max-age=30');
         response.json({
-          comments: comments.map(mapLinks).filter(filterQuery(request.query))
+          comments: comments
+            .map(mapLinks(request))
+            .filter(filterQuery(request.query))
         });
       });
     });
@@ -59,7 +63,7 @@ class Comments {
       let id = request.params.id;
       return data.getAsync(id).then(function(comment) {
         if (comment !== undefined) {
-          response.status(200).json(mapLinks(comment));
+          response.status(200).json(mapLinks(request)(comment));
           return;
         }
         response.status(404).json({
