@@ -4,7 +4,7 @@ const App = require('../app');
 
 describe('Places/controller', () => {
 
-    it('GET /api/places/2 should respond a http 200 OK', () => {
+    it.only('GET /api/places/2 should respond a http 200 OK', () => {
         const app = (new App()).app; 
         return request(app)
             .get('/api/places/2')
