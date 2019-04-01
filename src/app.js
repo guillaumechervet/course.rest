@@ -10,6 +10,7 @@ const Files = require('./files/controller');
 const packageJson = require('../package.json');
 const chalk = require('chalk');
 const log = console.log;
+var serverUtil = require('../serverUtil');
 /*
 const getReponseBody = response => {
     const oldWrite = response.write,
@@ -86,6 +87,16 @@ class App {
             places: new GraphqlPlaces(placeData)
         };*/
         new Graphql(app);
+
+        app.get('/api', function(request, response) {
+            const baseUrl = serverUtil.getBaseUrl(request);
+            const index = {
+                places: `${baseUrl}/api/places`,
+                commments: `${baseUrl}/api/comments`,
+                users: `${baseUrl}/api/users`
+            };
+            response.json(index);
+        });
 
         app.get('/api/version', function(request, response) {
             response.json({
