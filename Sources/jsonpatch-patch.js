@@ -12,4 +12,6 @@ var patch = [
     }
 ];
 document = jsonpatch.applyPatch(document, patch).newDocument;
-// document == { firstName: "Joachim", lastName: "Wester", contactDetails: { phoneNumbers: [{number:"555-123"}] } }
+
+// Result
+console.log(document);

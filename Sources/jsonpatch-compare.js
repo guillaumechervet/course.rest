@@ -1,7 +1,10 @@
-// https://www.npmjs.com/package/fast-json-patch
-var jsonpatch = require('fast-json-patch');
+const jsonpatch = require('fast-json-patch');
 
-var documentA = { user: { firstName: 'Albert', lastName: 'Einstein' } };
-var documentB = { user: { firstName: 'Albert', lastName: 'Collins' } };
-var diff = jsonpatch.compare(documentA, documentB);
+const userOrigin = { user: { firstName: 'Albert', lastName: 'Einstein' } };
+const userUpdated = { user: { firstName: 'Albert', lastName: 'Einstein' } };
+
+const diff = jsonpatch.compare(userOrigin, userUpdated);
 console.log(diff);
+
+const userPatched = jsonpatch.applyPatch(userOrigin,diff).newDocument;
+console.log(userPatched);
