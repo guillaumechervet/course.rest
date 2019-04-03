@@ -10,7 +10,7 @@ const Files = require('./files/controller');
 const packageJson = require('../package.json');
 const chalk = require('chalk');
 const log = console.log;
-var serverUtil = require('../serverUtil');
+var serverUtil = require('./serverUtil');
 /*
 const getReponseBody = response => {
     const oldWrite = response.write,
@@ -83,19 +83,38 @@ class App {
         new Users(app, new Data(require('./users/data.json')));
         new Comments(app, new Data(require('./comments/data.json')));
 
-        /* const graphs = {
-            places: new GraphqlPlaces(placeData)
-        };*/
         new Graphql(app);
 
         app.get('/api', function(request, response) {
             const baseUrl = serverUtil.getBaseUrl(request);
             const index = {
+                description: 'Place api is the place to be!',
                 places: `${baseUrl}/api/places`,
                 commments: `${baseUrl}/api/comments`,
-                users: `${baseUrl}/api/users`
+                users: `${baseUrl}/api/users`,
+                files: `${baseUrl}/api/files`
             };
             response.json(index);
+        });
+
+        app.get('/api/jsonld', function(request, response) {
+            const jsonLd = {
+                id: '1',
+                name: 'Londre',
+                review: 2,
+                image: {
+                    link: null
+                },
+                author: {
+                    id: '1',
+                    link: 'http://course-rest.azurewebsites.net/api/user/1'
+                },
+                commments: {
+                    link:
+            'http://course-rest.azurewebsites.net/api/comments?reference.id=1&reference.type=place'
+                }
+            };
+            response.json(jsonLd);
         });
 
         app.get('/api/version', function(request, response) {

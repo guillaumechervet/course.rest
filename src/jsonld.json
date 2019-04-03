@@ -1,0 +1,18 @@
+{
+  "@context": "http: //schema.org",
+  "@type": "Place",
+  "name": "Londre",
+  "review": 2,
+  "image": {
+    "@id": "http: //schema.org/image",
+    "@type": "@id",
+    "link": "http: //www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg"
+  },
+  "author": {
+    "id": "1",
+    "link": "http: //course-rest.azurewebsites.net/api/user/1"
+  },
+  "commments": {
+    "link": "http: //course-rest.azurewebsites.net/api/comments?reference.id=1&reference.type=place"
+  }
+}
