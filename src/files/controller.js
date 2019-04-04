@@ -7,7 +7,7 @@ var serverUtil = require('../serverUtil');
 const mapLinks = request => file => {
     const baseUrl = serverUtil.getBaseUrl(request);
     const newFile = {
-        link: `${baseUrl}/api/files/${file}`
+        link: `${baseUrl}/api/files/${encodeURIComponent(file)}`
     };
 
     return newFile;
