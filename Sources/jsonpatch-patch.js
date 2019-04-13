@@ -11,5 +11,6 @@ var patch = [
         value: { number: '555-123' }
     }
 ];
+
+// Result
 document = jsonpatch.applyPatch(document, patch).newDocument;
-// document == { firstName: "Joachim", lastName: "Wester", contactDetails: { phoneNumbers: [{number:"555-123"}] } }
