@@ -11,6 +11,7 @@ var patch = [
         value: { number: '555-123' }
     }
 ];
+document = jsonpatch.applyPatch(document, patch).newDocument;
 
 // Result
-document = jsonpatch.applyPatch(document, patch).newDocument;
+console.log(document);
