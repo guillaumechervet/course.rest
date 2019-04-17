@@ -2,11 +2,11 @@
   "data": [
     {
       "id": "1",
-      "name": "Devoxx Paris",
+      "name": "University elm Devoxx Paris",
       "review": 4,
       "image": {
-        "id": "da0337d0-fee5-11e8-93b1-61c607a98af0",
-        "filename": "Devoxx-paris.PNG"
+        "id": "d141e9c0-5624-11e9-8fc3-fd69e6fa9d9f",
+        "filename": "Devoxx-paris-elm.jpg"
       },
       "author": {
         "id": "1"
